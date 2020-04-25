@@ -14,7 +14,7 @@ $countglobarry = count($globarry);
 $negocountglobarry = (-1 * abs($countglobarry));
 $page = $_GET['page'];
 $perpage = 100;
-$totalpage = ceil($countglobarry/$perpage);
+$totalpage = (int)ceil(count($globarry) / $perpage);
 
 	 //Check pageGET exist or not
 	$pagenum = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -40,10 +40,10 @@ foreach($globarry as $image){
 }
 
 //Sort imgdataarray by reverse date
-$pictdatekey  = array_column($imgdataarray, 'pictdate');
-$picturlkey = array_column($imgdataarray, 'picturl');
-
-array_multisort($pictdatekey, SORT_DESC, $picturlkey, SORT_ASC, $imgdataarray);
+//$pictdatekey  = array_column($imgdataarray, 'pictdate');
+//$picturlkey = array_column($imgdataarray, 'picturl');
+//array_multisort($pictdatekey, SORT_DESC, $picturlkey, SORT_ASC, $imgdataarray);
+array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column($imgdataarray, 'picturl'), SORT_ASC, $imgdataarray);
 
 
 // This code need to check Pagenumber is integer or not
@@ -74,7 +74,8 @@ echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href
 //Only for TEST calculated echo "$slicestartcalculated - $slicestopcalculated <br />";
 //Only for TEST echo "$slicestart - $slicestop <br /><hr />";				  
 
-foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key => $value) {
+
+foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
 		$timestampkep = $value['pictdate'];
 		$datekep = date("Y F d H:i:s", $timestampkep);
 	    $picturl = $value['picturl'];
