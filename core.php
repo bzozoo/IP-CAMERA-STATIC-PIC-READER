@@ -18,6 +18,7 @@ $totalpage = (int)ceil(count($globarry) / $perpage);
 
 	 //Check pageGET exist or not
 	$pagenum = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+	$pagenum = max(1, min($totalpage, $pagenum));
 		
 	//Check Next
 	if ($pagenum == $totalpage) {
@@ -32,6 +33,18 @@ $totalpage = (int)ceil(count($globarry) / $perpage);
 	     } else {
 	     $prev = ($pagenum - 1);
 	     }
+		 
+$slicestartcalculated = ($pagenum*$perpage)-$perpage; // Calculate Page start. Other: ($pagenum - 1) * $perpage;
+$slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate Page stop
+      
+  $slicestart = $slicestartcalculated; // Always equal
+           
+   if ($slicestopcalculated < 0) {
+       $slicestop = $slicestopcalculated; // Equal IF calculated  <0 
+	   } 
+	   else {
+      $slicestop = NULL; // Not calculated IF not <0
+      }
 
 // Create a new Array for add pair file date and file url
 foreach($globarry as $image){
@@ -45,26 +58,16 @@ foreach($globarry as $image){
 //array_multisort($pictdatekey, SORT_DESC, $picturlkey, SORT_ASC, $imgdataarray);
 array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column($imgdataarray, 'picturl'), SORT_ASC, $imgdataarray);
 
-// This code need to check Pagenumber is integer or not
-if ( preg_match('/^\d+$/', $pagenum) && ($pagenum > 0) && ($pagenum <= $totalpage))
-   {
-     $slicestartcalculated = ($pagenum*$perpage)-$perpage; // Calculate Page start. Other: ($pagenum - 1) * $perpage;
-     $slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate Page stop
-      
-       	  $slicestart = $slicestartcalculated; // Always equal
-           
-		   if ($slicestopcalculated < 0) {
-               $slicestop = $slicestopcalculated; // Equal IF calculated  <0 
-			   } 
-			   else {
-                    $slicestop = NULL; // Not calculated IF not <0
-               }
-                  
 // Print out page datas In HTML              
 echo "<a id='up'></a>
 <div style='text-align: center; font-size: 20px;'>$countglobarry files  <br />";
 echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next'> Next >> </a> 
-<br /><a href='#down'>&darr;</a><br />
+<br />";
+//pagination
+    for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
+    echo "<a href='?page=$pageNumber'> &nbsp; $pageNumber &nbsp; </a>";
+  endfor;
+echo "<br /><a href='#down'>&darr;</a><br />
 </div><br />
 <hr />
 <div id='listcontent'>
@@ -82,11 +85,10 @@ foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
 		 <!-- FOREACH html -->
 		
 		 <div class="kepbox" id="kep-<?php echo $key; ?>" style="float: left; margin: 10 auto; font-size: 15px; text-align: center;">
-		 <img width="300px" src="<?php echo $picturl; ?>" onclick="openModal();currentSlide(<?php echo ($key+1); ?>)" class="hover-shadow cursor">
+		 <img width="300px" style="max-height: 225px;" src="<?php echo $picturl; ?>" onclick="openModal();currentSlide(<?php echo ($key+1); ?>)" class="hover-shadow cursor">
 		 <br />
 		 <?php echo $key; ?> - <?php echo $basepicturl; ?> - <?php echo $datekep; ?>
 		 </div>
-
 
 			<?php
     } //Foreach end
@@ -146,13 +148,6 @@ foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key2 => $value2)
 </div><!-- /mymodal -->
 <!-- MODAL HTML SECTION END -->
 
-<?php
-
-	 } else { // If not an integer
-       echo "You must enter an integer as a page! It can't be display bigger pagenumber than total the pages! (We have only <a href='?page=$totalpage'>$totalpage</a> pages)<br /><hr/>";
-} // Integer check IF construct end 
-
- ?>
  <!-- Modal Script -->
 <script>
 function openModal() {
