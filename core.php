@@ -48,7 +48,7 @@ array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column
 // This code need to check Pagenumber is integer or not
 if ( preg_match('/^\d+$/', $pagenum) && ($pagenum > 0) && ($pagenum <= $totalpage))
    {
-     $slicestartcalculated = ($pagenum*$perpage)-$perpage; // Calculate Page start
+     $slicestartcalculated = ($pagenum*$perpage)-$perpage; // Calculate Page start. Other: ($pagenum - 1) * $perpage;
      $slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate Page stop
       
        	  $slicestart = $slicestartcalculated; // Always equal
