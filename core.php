@@ -45,7 +45,6 @@ foreach($globarry as $image){
 //array_multisort($pictdatekey, SORT_DESC, $picturlkey, SORT_ASC, $imgdataarray);
 array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column($imgdataarray, 'picturl'), SORT_ASC, $imgdataarray);
 
-
 // This code need to check Pagenumber is integer or not
 if ( preg_match('/^\d+$/', $pagenum) && ($pagenum > 0) && ($pagenum <= $totalpage))
    {
@@ -73,7 +72,6 @@ echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href
 ";
 //Only for TEST calculated echo "$slicestartcalculated - $slicestopcalculated <br />";
 //Only for TEST echo "$slicestart - $slicestop <br /><hr />";				  
-
 
 foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
 		$timestampkep = $value['pictdate'];
@@ -120,10 +118,8 @@ foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key3 => $value3)
       <img src="<?php echo $picturl3; ?>" style="width:100%; max-height: 770px;">
     </div>
 	
-	
 	<?php } //Modal Slider Foreach end ?>
 
-    
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
