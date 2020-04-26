@@ -17,6 +17,7 @@ if (! empty($_SESSION["userId"])) {
 <html>
 <head>
 <title>User Login</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
 <link href="./view/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
