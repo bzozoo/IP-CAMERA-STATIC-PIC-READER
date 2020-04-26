@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>CAM STATIC IMG LISTING</title>
-<link rel="stylesheet" type="text/css" href="modal.css">
+<link rel="stylesheet" type="text/css" href="./css/modal.css">
+<meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 <?php
@@ -95,7 +96,7 @@ foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
 
 // Print out page datas in pagefooter              
 echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br /><div class='spacer' style='clear: both;'></div><hr /><div style='text-align: center; font-size: 20px;'>$countglobarry files  <br />";
-echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next'> Next >> </a> <br /> 
+echo "<a href='?page=$prev#down'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next#down'> Next >> </a> <br /> 
 <a id='down'></a> <br /><a href='#up'>&uarr;</a><br /></div>";
 ?>
 
