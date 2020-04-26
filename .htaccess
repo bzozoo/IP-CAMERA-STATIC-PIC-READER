@@ -1,0 +1,5 @@
+# You can disable direct accessses of your pictures 
+RewriteEngine on 
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?yourdomain [NC] 
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?yourdomain.*$ [NC] 
+RewriteRule \.(gif|jpg)$ - [F]
