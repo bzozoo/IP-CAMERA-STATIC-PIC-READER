@@ -8,8 +8,9 @@
 <?php
 // Check If called directly or not
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {  
-$globarry = glob(DIRECTORY .'*.{jpg,JPG,jpeg,JPEG,png,PNG}',GLOB_BRACE);
+echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {
+// Glob files from defined dyrectory
+$globarry = glob("{". DIRECTORY . "/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*.{jpg,JPG,jpeg,JPEG,png,PNG}}", GLOB_BRACE);
 
 $countglobarry = count($globarry);
 $negocountglobarry = (-1 * abs($countglobarry));
