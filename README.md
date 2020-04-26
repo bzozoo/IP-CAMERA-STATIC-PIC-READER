@@ -1,4 +1,5 @@
 # IP-CAMERA-STATIC-PIC-READER
+- This is not an user friendly script
 - This script can read JPG files from directory, where IP camera upload static pictures.
 - It displays 100 JPG formated images per page.
 <br />
