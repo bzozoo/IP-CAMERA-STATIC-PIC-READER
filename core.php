@@ -65,9 +65,9 @@ echo "<a id='up'></a>
 echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next'> Next >> </a> 
 <br />";
 //pagination
-    for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
+for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
     echo "<a href='?page=$pageNumber'> &nbsp; $pageNumber &nbsp; </a>";
-  endfor;
+endfor;
 echo "<br /><a href='#down'>&darr;</a><br />
 </div><br />
 <hr />
@@ -78,138 +78,78 @@ echo "<br /><a href='#down'>&darr;</a><br />
 //Only for TEST echo "$slicestart - $slicestop <br /><hr />";				  
 
 foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
-		$timestampkep = $value['pictdate'];
-		$datekep = date("Y F d H:i:s", $timestampkep);
-	    $picturl = $value['picturl'];
+		$picturl = $value['picturl'];
+		$datekep = date("Y F d H:i:s", $value['pictdate']);
 		$basepicturl = basename($picturl);
-		 ?>
-		 <!-- FOREACH html -->
-		
-		 <div class="kepbox" id="kep-<?php echo $key; ?>" style="float: left; margin: 10 auto; font-size: 15px; text-align: center;">
-		 <img width="300px" style="max-height: 225px;" src="<?php echo $picturl; ?>" onclick="openModal();currentSlide(<?php echo ($key+1); ?>)" class="hover-shadow cursor">
-		 <br />
-		 <?php echo $key; ?> - <?php echo $basepicturl; ?> - <?php echo $datekep; ?>
-		 </div>
-
-			<?php
-    } //Foreach end
+        echo "<!-- FOREACH html -->
+              <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px; text-align: center;'>
+		      <img width='300px' style='max-height: 225px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
+		      <br />
+		     $key - $basepicturl - $datekep
+		     </div>
+			 <!-- FOREACH html END -->";
+} //Foreach end
 
 // Print out page datas in pagefooter              
-echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br /><div class='spacer' style='clear: both;'></div><hr /><div style='text-align: center; font-size: 20px;'>$countglobarry files  <br />";
-echo "<a href='?page=$prev#down'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next#down'> Next >> </a> <br /> 
-<a id='down'></a> <br /><a href='#up'>&uarr;</a><br /></div>";
-?>
+echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br />
+      <div class='spacer' style='clear: both;'></div>
+      <hr />
+      <div style='text-align: center; font-size: 20px;'>$countglobarry files <br />
+      <a href='?page=$prev#down'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next#down'> Next >> </a> <br />
+      <a id='down'></a> <br /><a href='#up'>&uarr;</a><br /></div>";
 
-<!-- MODAL HTML SECTION -->
+// Modal Section
+echo "<!-- MODAL HTML SECTION -->
+      <div id='myModal' class='modal'>
+      <span class='close cursor' onclick='closeModal()'>&times;</span>
+      <div class='modal-content'>";	
 
-<div id="myModal" class="modal">
-  <span class="close cursor" onclick="closeModal()">&times;</span>
-  <div class="modal-content">	
-
-	<?php
-	//Modal Slider foreach
+//Modal Slider foreach
 foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key3 => $value3) {
 		$timestampkep3 = $value3['pictdate'];
 		$datekep3 = date("Y F d H:i:s", $timestampkep3);
 	    $picturl3 = $value3['picturl'];
 		$basepicturl3 = basename($picturl3);
-		 ?>
-    <!-- MODAL Slider  FOREACH -->
-	
-	    <div class="mySlides">
-      <div class="numbertext"><?php echo $key3; ?> / <?php echo $perpage; ?></div>
-      <img src="<?php echo $picturl3; ?>" style="width:100%; max-height: 770px;">
-    </div>
-	
-	<?php } //Modal Slider Foreach end ?>
+		 echo "<!-- MODAL Slider FOREACH HTML -->
+	           <div class='mySlides'>
+               <div class='numbertext'> $key3 / $perpage </div>
+               <img src='$picturl3' style='width:100%; max-height: 770px;'>
+               </div>
+	           <!-- MODAL Slider FOREACH HTML END -->";
+} //Modal Slider Foreach end
 
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+// Modal slider buttons
+echo "<a class='prev' onclick='plusSlides(-1)'>&#10094;</a>
+      <a class='next' onclick='plusSlides(1)'>&#10095;</a>
+      <div class='caption-container'>
+         <p id='caption'></p>
+      </div>";
 
-    <div class="caption-container">
-      <p id="caption"></p>
-    </div>
-	
-	<?php
 	//Modal thumb foreach
 foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key2 => $value2) {
 		$timestampkep2 = $value2['pictdate'];
 		$datekep2 = date("Y F d H:i:s", $timestampkep2);
 	    $picturl2 = $value2['picturl'];
 		$basepicturl2 = basename($picturl2);
-		 ?>
-    <!-- MODAL THUMB PIC FOREACH -->
-    <div class="column">
-      <img class="demo cursor" src="<?php echo $picturl2; ?>" style="width:100%" onclick="currentSlide(<?php echo ($key2+1); ?>)" alt="<?php echo "ID-$key2 - $basepicturl2 - $datekep2"; ?>" title="<?php echo "ID-$key2 - $basepicturl2 - $datekep2"; ?>">
-    </div>
-	
-	<?php } //Modal Thumb Foreach end ?>
+         echo "<!-- MODAL THUMB PIC FOREACH HTML -->
+               <div class='column'>
+               <img class='demo cursor' src='$picturl2' style='width:100%;' onclick='currentSlide(($key2+1))' alt='ID-$key2 - $basepicturl2 - $datekep2' title='ID-$key2 - $basepicturl2 - $datekep2'>
+               </div>
+	           <!-- MODAL THUMB PIC FOREACH HTML END -->";
+} //Modal Thumb Foreach end 
 
-  </div><!-- /modalcontent -->
-</div><!-- /mymodal -->
-<!-- MODAL HTML SECTION END -->
+// Modal divs end
+echo "</div><!-- /modalcontent -->
+      </div><!-- /mymodal -->
+      <!-- MODAL HTML SECTION END -->";
 
- <!-- Modal Script -->
-<script>
-function openModal() {
-  document.getElementById("myModal").style.display = "block";
-}
+// Include script for modal
+echo "<!-- Modal Script -->
+      <script src='core-modal.js'></script>";
 
-function closeModal() {
-  document.getElementById("myModal").style.display = "none";
-}
+} // End of Directory exist or not 
 
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
-
-document.onkeydown = function(e){
-    e = e || window.event;
-    var key = e.which || e.keyCode;
-    if(key===84){
-          alert('TEST');
-    }
-	        if(key===37){
-          plusSlides(-1);
-    }
-		    if(key===39){
-          plusSlides(1);
-    }
-		    if(key===38){
-          plusSlides(-1);
-    }
-		    if(key===40){
-          plusSlides(1);
-    }
-}
-</script>
-<?php
-} // End of Directore exist or not 
-?>
- </body>
- </html>
+// Close HTML tags
+echo "</body>
+      </html>";
+ ?>
