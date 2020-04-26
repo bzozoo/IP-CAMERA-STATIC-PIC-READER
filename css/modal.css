@@ -46,6 +46,7 @@
   right: 25px;
   font-size: 35px;
   font-weight: bold;
+  z-index: inherit;
 }
 
 .close:hover,
@@ -65,9 +66,9 @@
 .next {
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 45%;
   width: auto;
-  padding: 16px;
+  padding: 25px;
   margin-top: -50px;
   color: white;
   font-weight: bold;
