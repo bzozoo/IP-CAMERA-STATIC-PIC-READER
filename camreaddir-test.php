@@ -1,3 +1,4 @@
+<?php
 session_start();
 //user session check
 if(!empty($_SESSION["userId"])) {
