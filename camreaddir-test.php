@@ -1,8 +1,8 @@
-<?php
 session_start();
 //user session check
 if(!empty($_SESSION["userId"])) {
     require_once './view/userboard.php';
+	require_once './view/camboard.php';
 	echo "Welcome $displayName! ";
 	echo "<a href='camlist.php' class='logout-button'>(CAMLIST)</a>";
 	echo "<a href='logout.php' class='logout-button'>(Logout)</a>";
