@@ -25,7 +25,7 @@ if (! empty($_SESSION["userId"])) {
 <body>
     <div>
         <div class="dashboard">
-            <div class="member-dashboard">Welcome <b><?php echo $displayName; echo $_SESSION["userId"]; ?></b><?php echo " UID(" . $_SESSION["userId"] . ")"; echo " [" . $uEmail . "]"; ?> <br />You have successfully logged in!<br>
+            <div class="member-dashboard">Welcome <b><?php echo $displayName; ?></b><?php echo " UID(" . $_SESSION["userId"] . ")"; echo " [" . $uEmail . "]"; ?> <br />You have successfully logged in!<br>
 			    <a href="./camlist.php" class="logout-button">CAMLIST</a><br>
                 Click to <a href="./logout.php" class="logout-button">Logout</a>
             </div>
