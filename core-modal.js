@@ -35,6 +35,15 @@ function showSlides(n) {
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
+var intervalID = window.setInterval(myCallback, 500, -1);
+
+function myCallback(a)
+{
+ // Your code here
+ // Parameters are purely optional.
+plusSlides(a);
+}
+
 document.onkeydown = function(e){
     e = e || window.event;
     var key = e.which || e.keyCode;
