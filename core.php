@@ -10,12 +10,12 @@
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {
 // Glob files from defined dyrectory
-$globarry = glob("{". DIRECTORY . "/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*.{jpg,JPG,jpeg,JPEG,png,PNG}}", GLOB_BRACE);
+$globarry = glob("{". DIRECTORY . "/*/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*.{jpg,JPG,jpeg,JPEG,png,PNG}}", GLOB_BRACE);
 
 $countglobarry = count($globarry);
 $negocountglobarry = (-1 * abs($countglobarry));
 $page = $_GET['page'];
-$perpage = 100;
+$perpage = 200;
 $totalpage = (int)ceil(count($globarry) / $perpage);
 
 	 //Check pageGET exist or not
