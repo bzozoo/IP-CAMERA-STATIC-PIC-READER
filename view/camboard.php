@@ -10,7 +10,10 @@ if (! empty($_SESSION["userId"])) {
 	if(!empty($cameraResultByUID)) {
 		$cameraListByUidArray = $cameraResultByUID;
     } else {
-       $cameraListByUidArray = "User have not a camera";
+       $cameraListByUidArray = Array(Array(
+                'c_id' => 0,
+                'display_camname' => 'User have not a camera',
+                'cam_path' => 'You have not a campath'));
     }
 }
 ?>
