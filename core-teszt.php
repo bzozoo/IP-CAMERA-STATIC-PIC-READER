@@ -9,13 +9,13 @@
 // Check If called directly or not
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {
-// Glob files from defined dyrectory	
+// Glob files from defined dyrectory
 $globarry = glob("{". DIRECTORY . "/*/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*.{jpg,JPG,jpeg,JPEG,png,PNG}}", GLOB_BRACE);
 
 $countglobarry = count($globarry);
 $negocountglobarry = (-1 * abs($countglobarry));
 $page = $_GET['page'];
-$perpage = 100;
+$perpage = 200;
 $totalpage = (int)ceil(count($globarry) / $perpage);
 
 	 //Check pageGET exist or not
@@ -63,11 +63,11 @@ array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column
 // Print out page datas In HTML              
 echo "<a id='up'></a>
 <div style='text-align: center; font-size: 20px;'>$countglobarry files  <br />";
-echo "<a href='?page=$prev'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next'> Next >> </a> 
+echo "<a href='?page=$prev&cam_num=$actualCameraNumber'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber'> Next >> </a> 
 <br />";
 //pagination
 for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
-    echo "<a href='?page=$pageNumber'> &nbsp; $pageNumber &nbsp; </a>";
+    echo "<a href='?page=$pageNumber&cam_num=$actualCameraNumber'> &nbsp; $pageNumber &nbsp; </a>";
 endfor;
 echo "<br /><a href='#down'>&darr;</a><br />
 </div><br />
@@ -96,7 +96,7 @@ echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br />
       <div class='spacer' style='clear: both;'></div>
       <hr />
       <div style='text-align: center; font-size: 20px;'>$countglobarry files <br />
-      <a href='?page=$prev#down'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next#down'> Next >> </a> <br />
+      <a href='?page=$prev&cam_num=$actualCameraNumber#down'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber#down'> Next >> </a> <br />
       <a id='down'></a> <br /><a href='#up'>&uarr;</a><br /></div>";
 
 // Modal Section
