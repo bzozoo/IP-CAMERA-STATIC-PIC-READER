@@ -7,7 +7,8 @@ CREATE TABLE `registered_users` (
   `user_name` varchar(255) NOT NULL,
   `display_name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `opt_adm` int(1) NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
