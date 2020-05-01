@@ -1,7 +1,7 @@
 # IP-CAMERA-STATIC-PIC-READER (ALFA VERSION)
 * This is not an user friendly script
 * This script can read JPG files from directory, where IP camera upload static pictures.
-* It displays 100 JPG formated images per page.
+* It displays 200 JPG formated images per page.
 
 Install:
 * Download this script, Upload your server
@@ -19,4 +19,4 @@ Features:
 * Picture listening reverse by date
 * Included user login system (Phppot)
 * Modal lightbox for pictrures
-* Pagination 100 JPG files per page. You can change it in core.php about $perpage variable.
+* Pagination 200 JPG files per page. You can change it in core.php about $perpage variable.
