@@ -9,6 +9,7 @@ Install:
 * This SQL installer will create Your User profile in database (as Admin) and It will create your first cameraname, path etc. You can change it to your own datas
 * You can add other users in SQL (Phpmyadmin etc).
 * You can define new cameranames, camerapaths here too
+* Setting your database connection in /class/DataSource.php (SQL host, DB name, DB user, DB password)
 
 Usage
 * Login with your selected username and pasword what you created with Installer.
