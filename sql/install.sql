@@ -15,8 +15,8 @@ CREATE TABLE `registered_users` (
 -- Dumping data for table `registered_users`
 --
 
-INSERT INTO `registered_users` (`id`, `user_name`, `display_name`, `password`, `email`) VALUES
-(1, 'DefaultUser', 'User Orig Name', 'MD5 PASSW', 'your@mail.com'); -- Change to Your own sensitive datas --
+INSERT INTO `registered_users` (`id`, `user_name`, `display_name`, `password`, `email`, `opt_adm`) VALUES
+(1, 'DefaultUser', 'User Orig Name', 'MD5 PASSW', 'your@mail.com', '1'); -- Change to Your own sensitive datas. OPT_ADM = 1 Create an admin permisssioned user --
 
 --
 -- Indexes for table `registered_users`
