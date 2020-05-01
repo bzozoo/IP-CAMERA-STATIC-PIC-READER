@@ -4,6 +4,7 @@ if(!empty($_SESSION["userId"])) {
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
 	$sessionUserID = $_SESSION['userId'];
+	$sortByDate = $_GET['sortdate'];
 	echo "<html>";
 	echo "<head>";
 	echo "<title>CAMERA LIST</title>";
@@ -18,10 +19,14 @@ if(!empty($_SESSION["userId"])) {
 	//Camlist
 	
 	foreach($cameraListByUidArray as $key => $value1) {
-    echo ($key+1), ' - '; echo $value1['c_id'], ' - '; echo $value1['display_camname'], ' - '; echo $value1['cam_path'], ' - '; echo '<a href="camreader.php?cam_num=', ($key+1), '">VIEW</a><br>';
+    echo ($key+1), ' - '; echo $value1['c_id'], ' - '; echo $value1['display_camname'], ' - '; echo $value1['cam_path'], ' - '; echo '<a href="camreader.php?cam_num=', ($key+1), '&sortdate=', $sortByDate, '">VIEW</a><br>';
     }
 
 	echo "</div>";
+	echo "<br />";
+	echo "Sort camera images by: <a href='?&sortdate=ASC'>[ASC]</a> <a href='?&sortdate=DSC'>[DSC]</a>";
+	echo "<br />";
+	echo "<br />";
 	echo "Click to <a href='logout.php' class='logout-button'>Logout</a>";
 	echo "<br />";
 	echo "<hr />";
