@@ -10,13 +10,15 @@
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {
 // Glob files from defined dyrectory
-$globarry = glob("{". DIRECTORY . "/*/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*/*.{jpg,JPG,jpeg,JPEG,png,PNG},". DIRECTORY . "/*.{jpg,JPG,jpeg,JPEG,png,PNG}}", GLOB_BRACE);
 
-$countglobarry = count($globarry);
+$newCoreClass = new coreClass();
+$ArrayedGlob = $newCoreClass->globArray(DIRECTORY);
+$imagARRAY = $newCoreClass->imagedataArray($ArrayedGlob);
+$countglobarry = count($ArrayedGlob);
 $negocountglobarry = (-1 * abs($countglobarry));
 $page = $_GET['page'];
 $perpage = 200;
-$totalpage = (int)ceil(count($globarry) / $perpage);
+$totalpage = (int)ceil(count($ArrayedGlob) / $perpage);
 
 	 //Check pageGET exist or not
 	$pagenum = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -48,18 +50,6 @@ $slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate 
       $slicestop = NULL; // Not calculated IF not <0
       }
 
-// Create a new Array for add pair file date and file url
-foreach($globarry as $image){
-	$filedate = filemtime($image);
-	$imgdataarray[] = array('picturl' => $image, 'pictdate' => $filedate);
-}
-
-//Sort imgdataarray by reverse date
-//$pictdatekey  = array_column($imgdataarray, 'pictdate');
-//$picturlkey = array_column($imgdataarray, 'picturl');
-//array_multisort($pictdatekey, SORT_DESC, $picturlkey, SORT_ASC, $imgdataarray);
-array_multisort(array_column($imgdataarray, 'pictdate'), SORT_DESC, array_column($imgdataarray, 'picturl'), SORT_ASC, $imgdataarray);
-
 // Print out page datas In HTML              
 echo "<a id='up'></a>
 <div style='text-align: center; font-size: 20px;'>$countglobarry files  <br />";
@@ -75,23 +65,12 @@ echo "<br /><a href='#down'>&darr;</a><br />
 <div id='listcontent'>
 <div id='listcontentinner' style='display: table; margin: 0 auto;'>
 ";
-//Only for TEST calculated echo "$slicestartcalculated - $slicestopcalculated <br />";
-//Only for TEST echo "$slicestart - $slicestop <br /><hr />";				  
+			  
 
-foreach(array_slice($imgdataarray, $slicestart, $perpage) as $key => $value) {
-		$picturl = $value['picturl'];
-		$datekep = date("Y F d H:i:s", $value['pictdate']);
-		$basepicturl = basename($picturl);
-        echo "<!-- FOREACH html -->
-              <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px; text-align: center;'>
-		      <img width='300px' style='max-height: 225px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
-		      <br />
-		     $key - $basepicturl - $datekep
-		     </div>
-			 <!-- FOREACH html END -->";
-} //Foreach end
+//List images from CoreClass
+$newCoreClass->foreachval($imagARRAY, $slicestart, $perpage); //Or perpage instead of slicestop
 
-// Print out page datas in pagefooter              
+// Page footer - Pagination links etc...            
 echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br />
       <div class='spacer' style='clear: both;'></div>
       <hr />
@@ -103,10 +82,11 @@ echo "</div><!-- /listcontentinner --></div><!-- /listcontent --><br />
 echo "<!-- MODAL HTML SECTION -->
       <div id='myModal' class='modal'>
       <span class='close cursor' onclick='closeModal()'>&times;</span>
-      <div class='modal-content'>";	
+      <div class='modal-content'>";
 
 //Modal Slider foreach
-foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key3 => $value3) {
+
+foreach(array_slice($imagARRAY, $slicestart, $slicestop) as $key3 => $value3) {
 		$timestampkep3 = $value3['pictdate'];
 		$datekep3 = date("Y F d H:i:s", $timestampkep3);
 	    $picturl3 = $value3['picturl'];
@@ -127,7 +107,7 @@ echo "<a class='prev' onclick='plusSlides(-1)'>&#10094;</a>
       </div>";
 
 	//Modal thumb foreach
-foreach(array_slice($imgdataarray, $slicestart, $slicestop) as $key2 => $value2) {
+foreach(array_slice($imagARRAY, $slicestart, $slicestop) as $key2 => $value2) {
 		$timestampkep2 = $value2['pictdate'];
 		$datekep2 = date("Y F d H:i:s", $timestampkep2);
 	    $picturl2 = $value2['picturl'];
