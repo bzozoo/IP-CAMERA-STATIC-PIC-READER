@@ -4,15 +4,17 @@ session_start();
 if(!empty($_SESSION["userId"])) {
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
+	require_once './class/CoreClass.php';
 	
 	//CameraNumber
     $actualCameraNumber = $_GET['cam_num'];
     $actualCamPath = $cameraListByUidArray[($_GET['cam_num']-1)]['cam_path'];
-	
+	$actpage = $_GET['page'];
+	$sortByDate = $_GET['sortdate'];
 	echo "Welcome $displayName on NUM-$actualCameraNumber camera!";
-	echo "<a href='camlist.php' class='logout-button'>(CAMLIST)</a>";
-	echo "<a href='logout.php' class='logout-button'>(Logout)</a><br />";
-	echo "Actual campath: $actualCamPath <br />";
+    echo "<a href='camlist.php?&sortdate=$sortByDate' class='logout-button'>[CAMLIST]</a>";
+	echo "<a href='logout.php' class='logout-button'>[Logout]</a><br />";
+	echo "Actual campath: [$actualCamPath] Sort by: <a href='?page=$actpage&cam_num=$actualCameraNumber&sortdate=ASC'>[ASC]</a> <a href='?page=$actpage&cam_num=$actualCameraNumber&sortdate=DSC'>[DSC]</a><br />";
 
     define("DIRECTORY", $actualCamPath);
 	     
