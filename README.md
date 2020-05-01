@@ -10,6 +10,7 @@ Install:
 * You can add other users in SQL (Phpmyadmin etc).
 * You can define new cameranames, camerapaths here too
 * Setting your database connection in /class/DataSource.php (SQL host, DB name, DB user, DB password)
+* Delete all test named files (example core-teszt.php)
 
 Usage
 * Login with your selected username and pasword what you created with Installer.
