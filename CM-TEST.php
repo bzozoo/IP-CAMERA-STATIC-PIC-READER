@@ -4,6 +4,7 @@ session_start();
 if(!empty($_SESSION["userId"])) {
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
+	require_once './class/CoreClass.php';
 	
 	//CameraNumber
     $actualCameraNumber = $_GET['cam_num'];
