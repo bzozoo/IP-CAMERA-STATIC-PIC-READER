@@ -36,7 +36,6 @@ function showSlides(n) {
 }
 
 var intervalID = window.setInterval(myCallback, 500, -1);
-
 function myCallback(a)
 {
  // Your code here
