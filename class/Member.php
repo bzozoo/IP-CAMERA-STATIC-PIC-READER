@@ -25,6 +25,14 @@ class Member
         
         return $memberResult;
     }
+	
+	    function getAllMember()
+    {
+        $query = "select * FROM registered_users";
+        $AllMemberResult = $this->ds->select($query);
+        
+        return $AllMemberResult;
+    }
     
     public function processLogin($username, $password) {
         $passwordHash = md5($password);
