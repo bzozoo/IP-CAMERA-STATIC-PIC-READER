@@ -44,15 +44,16 @@ CREATE TABLE `registered_cameras` (
   `c_id` int(8) NOT NULL,
   `display_camname` varchar(255) NOT NULL,
   `cam_path` varchar(255) NOT NULL,
-  `cam_owner` int(8) NOT NULL
+  `cam_owner` int(8) NOT NULL,
+  `cam_secret` int(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `registered_cameras`
 --
 
-INSERT INTO `registered_cameras` (`c_id`, `display_camname`, `cam_path`, `cam_owner`) VALUES
-(1, 'DefaultCAM', '/DATAS/CMS/', 1); -- Change to Your own camera datas --
+INSERT INTO `registered_cameras` (`c_id`, `display_camname`, `cam_path`, `cam_owner`, `cam_secret`) VALUES
+(1, 'DefaultCAM', '/DATAS/CMS/', 1, 12345678); -- Change to Your own camera datas, and add a random secret (Max 8 numbers) --
 
 --
 -- Indexes for table `registered_cameras
