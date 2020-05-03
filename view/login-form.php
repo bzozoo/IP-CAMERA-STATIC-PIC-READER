@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>User Login</title>
+<title>CAMERA VIEWER - PROTECTED AREA</title>
 <link href="./view/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
