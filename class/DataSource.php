@@ -9,17 +9,14 @@ namespace Phppot;
  */
 class DataSource
 {
-
+    // Sensitive database acces data constanses
     // PHP 7.1.0 visibility modifiers are allowed for class constants.
     // when using above 7.1.0, declare the below constants as private
-    const HOST = 'localhost'; // Change to your own DATA
-
-    const USERNAME = 'DB-USERAME'; // Change to your own DATA
-
-    const PASSWORD = 'YOUR-DB-PASS'; // Change to your own DATA
-
-    const DATABASENAME = 'YOUR-DB-NAME'; // Change to your own DATA
-
+       const HOST = 'localhost'; // Change to Your Own host
+       const USERNAME = 'DB-USERAME'; // Change to Your Own Database username
+       const PASSWORD = 'DB-PASSW'; // Change to Your Own Database password
+       const DATABASENAME = 'DB-NAME'; // Change to Your Own Database Name
+	
     private $conn;
 
     /**
@@ -93,13 +90,24 @@ class DataSource
      */
     public function insert($query, $paramType, $paramArray)
     {
-        print $query;
         $stmt = $this->conn->prepare($query);
         $this->bindQueryParams($stmt, $paramType, $paramArray);
         $stmt->execute();
         $insertId = $stmt->insert_id;
         return $insertId;
     }
+	
+	    // DELETE camera FROM Database
+	    public function del($query, $paramType, $paramArray)
+    {
+        $stmt = $this->conn->prepare($query);
+		//$stmt->bind_param($paramType, $paramArray);
+        $this->bindQueryParams($stmt, $paramType, $paramArray);
+        $stmt->execute();
+        $delId = $stmt->del_id;
+        return $delId;
+    }
+	
     
     /**
      * To execute query
