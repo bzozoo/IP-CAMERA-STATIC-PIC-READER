@@ -57,9 +57,15 @@ echo "<a id='up'></a>
 //pagination1
 echo "<a href='?page=$prev&cam_num=$actualCameraNumber&sortdate=$sortByDate'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber&sortdate=$sortByDate'> Next >> </a><br />";
 //pagination2
+	echo "<select id='pagenat' onchange='location = this.options[this.selectedIndex].value;'>";
 for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
-    echo "<a href='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'> &nbsp; $pageNumber &nbsp; </a>";
+     if($pageNumber == $page){
+    echo "<option selected='selected' value='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'>$pageNumber</option>";
+	 } else {
+	 echo "<option value='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'>$pageNumber</option>"; }
 endfor;
+echo "</select>";
+
 echo "<br /><a href='#down'>&darr;</a><br />
 </div><br />
 <hr />
