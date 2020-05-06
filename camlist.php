@@ -29,9 +29,6 @@ if(!empty($_SESSION["userId"])) {
             <td><b>NUM</b></td>
             <td><b>NAME</b></td>
             <td><b>PATH</b></td>
-            <td><b>View</b></td>
-            <td><b>Update</b></td>
-            <td><b>Delete</b></td>
         </tr>";
 		foreach($cameraListByUidArray as $key => $value1) {
 		$cID = $value1['c_id'];
@@ -47,14 +44,17 @@ if(!empty($_SESSION["userId"])) {
                 <td>$KeyPlusOne</td>
                 <td>$CamNameDisplay</td>
                 <td>$CamPathDisplay</td>
-                <td><a href='camreader.php?cam_num=$KeyPlusOne&sortdate=$sortByDate'>VIEW</a></td>
-                <td>SOON!</td>
-                <td><form action='./camera-action.php?act=del' method='POST'>
+                
+            </tr>
+			    <td colspan='2'><a href='camreader.php?cam_num=$KeyPlusOne&sortdate=$sortByDate'><button>VIEW</button></a></td>
+                <td colspan='1'><form action='./camera-action.php?act=del' method='POST'>
 				<input type='hidden' id='delcamID-$KeyPlusOne' name='delcamID' value='$cID'>
 				<input type='submit' id='delcam-$KeyPlusOne' name='delcam' value='DEL'>
 				</form>
 				</td>
-              </tr>";
+			<tr>
+			
+			</tr>";
         }
 		
     echo "</tbody>
@@ -72,13 +72,14 @@ if(!empty($_SESSION["userId"])) {
         <tr>
             <td><b>CAMERA NAME</b></td>
             <td><b>CAMERA PATH</b></td>
-            <td><b>Submit</b></td>
         </tr>
 		<tr>
             <td><input type='hidden' id='cam_owner' name='cam_owner' value='$sessionUserID' required />
 			    <input type='text' id='cam_name' name='cam_name' placeholder='MyCamera' required /></td>
-            <td><input type='text' id='cam_path' name='cam_path' placeholder='/My/Image/Directory/Path/' required /></td>
-            <td><input type='submit' id='addcam' name='addcam' value='ADD'></td>
+            <td><input type='text' id='cam_path' name='cam_path' placeholder='/My/Image/Path/' required /></td>
+         </tr>
+		 <tr>
+			<td colspan='2'><input type='submit' id='addcam' name='addcam' value='ADD'></td>
         </tr>
 		</tbody>
     </table>
