@@ -54,9 +54,9 @@ $slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate 
 // Head Links and etc...           
 echo "<a id='up'></a>
 <div style='text-align: center; font-size: 20px;'>$countglobarry files - $perpage perpage <br />";
-echo "<a href='?page=$prev&cam_num=$actualCameraNumber&sortdate=$sortByDate'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber&sortdate=$sortByDate'> Next >> </a> 
-<br />";
-//pagination
+//pagination1
+echo "<a href='?page=$prev&cam_num=$actualCameraNumber&sortdate=$sortByDate'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber&sortdate=$sortByDate'> Next >> </a><br />";
+//pagination2
 for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
     echo "<a href='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'> &nbsp; $pageNumber &nbsp; </a>";
 endfor;
