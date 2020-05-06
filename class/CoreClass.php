@@ -31,7 +31,7 @@ class coreClass
               <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px; text-align: center;'>
 		      <img width='300px' style='max-height: 225px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
 		      <br />
-		     $key - $basepicturl - $datekep
+		     $key - $basepicturl <p> $datekep </p>
 		     </div>
 			 <!-- FOREACH html END -->";
        }
