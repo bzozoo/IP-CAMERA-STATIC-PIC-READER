@@ -3,8 +3,7 @@ session_start();
 if(!empty($_SESSION["userId"])) {
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
-	$sessionUserID = $_SESSION['userId'];
-	$sortByDate = $_GET['sortdate'];
+	
 	echo "<html>";
 	echo "<head>";
 	echo "<title>CAMERA LIST</title>";
