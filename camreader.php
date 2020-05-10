@@ -1,7 +1,7 @@
 <?php
 session_start();
 //user session check
-if(!empty($_SESSION["userId"])) {
+if(empty($_SESSION["userId"])) {
     require_once './view/login-form.php';
     exit;
 }
