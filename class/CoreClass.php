@@ -27,11 +27,16 @@ class coreClass
 		$picturl = $value['picturl'];
 		$datekep = date("Y F d H:i:s", $value['pictdate']);
 		$basepicturl = basename($picturl);
+		$keyplusone = ($key+1);
         echo "<!-- FOREACH html -->
-              <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px; text-align: center;'>
-		      <img width='300px' style='max-height: 225px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
-		      <br />
-		     $key - $basepicturl <p> $datekep </p>
+              <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px;'>
+		      <div class='kepcontent' style='width: 350px; height: 250px;'>
+			  <img width='100%' style='max-height: 250px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
+		      </div>
+		     <div class='kepdatacontent' style='width: 350px; display: flex;'>
+			 <div class='keynumber' style='display: inline-block; width: 62px; text-align: center; padding-top: 8px; font-size: 20px; font-family: fantasy;'>$keyplusone</div>
+			 <div class='kepdata' style='display: inline-block; width: 100%;'> <b>$basepicturl</b> <br /> $datekep </div>
+			 </div> 
 		     </div>
 			 <!-- FOREACH html END -->";
        }
