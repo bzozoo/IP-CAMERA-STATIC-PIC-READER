@@ -7,8 +7,11 @@ session_start();
 	echo "<link href='./view/css/style.css' rel='stylesheet' type='text/css' />";
 	echo "</head>";
 	echo "<br />";
-if(!empty($_SESSION["userId"])) {
-	
+if(empty($_SESSION["userId"])) {
+	require_once './view/login-form.php';
+    exit;
+}
+
     require_once './view/userboard.php';
 	if ($adminCheck != NULL) {
 	require_once 'functions.php';
@@ -28,7 +31,4 @@ if(!empty($_SESSION["userId"])) {
 	echo "  </div>
             </div>";
 	echo "</html>";
-} else {
-    require_once './view/login-form.php';
-}
 ?>
