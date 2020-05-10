@@ -35,11 +35,21 @@ function showSlides(n) {
   captionText.innerHTML = dots[slideIndex-1].alt;
 }
 
-var intervalID = window.setInterval(myCallback, 500, -1);
+var startCB = null;
+
+function startCallback() {
+	clearInterval(startCB);
+	startCB = setInterval(myCallback, 500, -1);
+}
+
+function stopCallback() {
+	console.log('TRY TO STOP');
+	clearInterval(startCB);
+	console.log('STOPPED');
+}
+
 function myCallback(a)
 {
- // Your code here
- // Parameters are purely optional.
 plusSlides(a);
 }
 
