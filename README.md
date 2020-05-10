@@ -3,6 +3,10 @@
 * This script can read JPG files from directory, where IP camera upload static pictures.
 * It displays 200 JPG formated images per page.
 
+System Reuirements:
+* PHP 5.6
+* MySQL
+
 Install:
 * Download this script, Upload your server
 * RUN SQL commands in Your Database (etc in SQL commander section of  Phpmyadmin) from /sql/install.sql
