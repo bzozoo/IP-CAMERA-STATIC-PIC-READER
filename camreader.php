@@ -2,6 +2,10 @@
 session_start();
 //user session check
 if(!empty($_SESSION["userId"])) {
+    require_once './view/login-form.php';
+    exit;
+}
+
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
 
@@ -23,8 +27,4 @@ if(!empty($_SESSION["userId"])) {
           } else {
                    echo "This directory (".  DIRECTORY . ") does not exist! Please define a new directory path!";
           }
-
-    } else {
-            require_once './view/login-form.php';
-}
 ?>
