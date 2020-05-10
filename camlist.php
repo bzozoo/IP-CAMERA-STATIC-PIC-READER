@@ -1,6 +1,9 @@
 <?php
 session_start();
-if(!empty($_SESSION["userId"])) {
+if(empty($_SESSION["userId"])) {
+ require_once './view/login-form.php';
+ exit;
+}
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
 	
@@ -98,7 +101,4 @@ if(!empty($_SESSION["userId"])) {
             </div>";
 
 	echo "</html>";
-} else {
-    require_once './view/login-form.php';
-}
 ?>
