@@ -54,12 +54,18 @@ $slicestopcalculated = $negocountglobarry + ($pagenum * $perpage); // Calculate 
 // Head Links and etc...           
 echo "<a id='up'></a>
 <div style='text-align: center; font-size: 20px;'>$countglobarry files - $perpage perpage <br />";
-echo "<a href='?page=$prev&cam_num=$actualCameraNumber&sortdate=$sortByDate'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber&sortdate=$sortByDate'> Next >> </a> 
-<br />";
-//pagination
+//pagination1
+echo "<a href='?page=$prev&cam_num=$actualCameraNumber&sortdate=$sortByDate'><< Prev </a> $pagenum / $totalpage . page(s) <a href='?page=$next&cam_num=$actualCameraNumber&sortdate=$sortByDate'> Next >> </a><br />";
+//pagination2
+	echo "<select id='pagenat' onchange='location = this.options[this.selectedIndex].value;'>";
 for ($pageNumber = 1;$pageNumber <= $totalpage;$pageNumber++):
-    echo "<a href='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'> &nbsp; $pageNumber &nbsp; </a>";
+     if($pageNumber == $page){
+    echo "<option selected='selected' value='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'>$pageNumber</option>";
+	 } else {
+	 echo "<option value='?page=$pageNumber&cam_num=$actualCameraNumber&sortdate=$sortByDate'>$pageNumber</option>"; }
 endfor;
+echo "</select>";
+
 echo "<br /><a href='#down'>&darr;</a><br />
 </div><br />
 <hr />
@@ -92,10 +98,12 @@ foreach(array_slice($imagARRAY, $slicestart, $slicestop) as $key3 => $value3) {
 		$datekep3 = date("Y F d H:i:s", $timestampkep3);
 	    $picturl3 = $value3['picturl'];
 		$basepicturl3 = basename($picturl3);
+		$key3plusone = ($key3+1);
 		 echo "<!-- MODAL Slider FOREACH HTML -->
 	           <div class='mySlides'>
-               <div class='numbertext'> $key3 / $perpage </div>
-               <img src='$picturl3' style='width:100%; max-height: 770px;'>
+               <div class='numbertext'> $key3plusone / $perpage </div>
+               <img src='$picturl3' style='width:100%; max-height: 500px;' />
+			   <a href='javascript:void(0)' onclick='startCallback();'>START</a> - <a href='javascript:void(0)' onclick='stopCallback();'>STOP</a>
                </div>
 	           <!-- MODAL Slider FOREACH HTML END -->";
 } //Modal Slider Foreach end
@@ -113,9 +121,10 @@ foreach(array_slice($imagARRAY, $slicestart, $slicestop) as $key2 => $value2) {
 		$datekep2 = date("Y F d H:i:s", $timestampkep2);
 	    $picturl2 = $value2['picturl'];
 		$basepicturl2 = basename($picturl2);
+		$key2plusone = ($key2+1);
          echo "<!-- MODAL THUMB PIC FOREACH HTML -->
                <div class='column'>
-               <img class='demo cursor' src='$picturl2' style='width:100%;' onclick='currentSlide(($key2+1))' alt='ID-$key2 - $basepicturl2 - $datekep2' title='ID-$key2 - $basepicturl2 - $datekep2'>
+               <img class='demo cursor' src='$picturl2' style='width:100%;' onclick='currentSlide(($key2+1))' alt='ID-$key2plusone - $basepicturl2 - $datekep2' title='ID-$key2plusone - $basepicturl2 - $datekep2'>
                </div>
 	           <!-- MODAL THUMB PIC FOREACH HTML END -->";
 } //Modal Thumb Foreach end 
