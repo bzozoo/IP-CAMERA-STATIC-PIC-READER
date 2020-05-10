@@ -29,7 +29,7 @@ class coreClass
 		$basepicturl = basename($picturl);
 		$keyplusone = ($key+1);
         echo "<!-- FOREACH html -->
-              <div class='kepbox' id='kep-$key' style='float: left; margin: 10 auto; font-size: 15px;'>
+              <div class='kepbox' id='kep-$key' style='display: inline-block; margin: 10 auto; font-size: 15px;'>
 		      <div class='kepcontent' style='width: 350px; height: 250px;'>
 			  <img width='100%' style='max-height: 250px;' src='$picturl' onclick='openModal();currentSlide($key+1)' class='hover-shadow cursor'>
 		      </div>
