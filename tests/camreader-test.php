@@ -22,7 +22,7 @@ if(empty($_SESSION["userId"])) {
            if (dirisempty(DIRECTORY)) {
                echo "This directory (".  DIRECTORY . ") is empty! We can display nothing."; 
                } else {
-                       require_once('core.php'); 
+                       require_once('core-test.php'); 
                }
  
           } else {
