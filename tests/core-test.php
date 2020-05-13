@@ -1,14 +1,14 @@
 <html>
 <head>
 <title>CAM STATIC IMG LISTING</title>
-<link rel="stylesheet" type="text/css" href="./css/modal.css">
+<link rel="stylesheet" type="text/css" href="./view/css/modal.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 <?php
 // Check If called directly or not
 if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
-echo "This script is only for call from directory define script! This script not running If you called directly!"; } else {
+echo "This script is only for to include!"; exit;}
 
 $newCoreClass = new coreClass();
 
@@ -136,9 +136,7 @@ echo "</div><!-- /modalcontent -->
 
 // Include script for modal
 echo "<!-- Modal Script -->
-      <script src='core-modal.js'></script>";
-
-} // End of Directory exist or not 
+      <script src='./view/js/core-modal.js'></script>";
 
 // Close HTML tags
 echo "</body>
