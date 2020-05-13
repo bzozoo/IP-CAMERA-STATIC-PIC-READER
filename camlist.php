@@ -12,6 +12,7 @@ if(empty($_SESSION["userId"])) {
 	echo "<title>CAMERA LIST</title>";
 	echo '<meta name="viewport" content="width=device-width, user-scalable=no">';
 	echo "<link href='./view/css/style.css' rel='stylesheet' type='text/css' />";
+	echo "<link href='./view/css/deletepopup.css' rel='stylesheet' type='text/css' />";
 	echo "</head>";
 	echo "<br />";
 	
@@ -48,12 +49,15 @@ if(empty($_SESSION["userId"])) {
                 <td>$CamPathDisplay</td>
                 
             </tr>
-			    <td colspan='2'><a href='camreader.php?cam_num=$KeyPlusOne&sortdate=$sortByDate'><button>VIEW</button></a></td>
-                <td colspan='1'><form action='./camera-action.php?act=del' method='POST'>
-				<input type='hidden' id='delcamID-$KeyPlusOne' name='delcamID' value='$cID'>
-				<input type='submit' id='delcam-$KeyPlusOne' name='delcam' value='DEL'>
-				</form>
+			    <td colspan='2'>
+				<a href='camreader.php?cam_num=$KeyPlusOne&sortdate=$sortByDate'><button>VIEW</button></a>
 				</td>
+                <td colspan='1'>
+				<script>
+				var hidimp$KeyPlusOne = \"<input type='hidden' id='delcamID-$KeyPlusOne' name='delcamID' value='$cID'>\"
+				</script>
+				
+				<input  onclick=\"document.getElementById('id01').style.display='block'; document.getElementById('deletesure').innerHTML = 'Are You sure DELETE $KeyPlusOne. camera? ' + hidimp$KeyPlusOne \" type='button' id='delcam-$KeyPlusOne' name='delalert'  value='DEL'>
 			<tr>
 			
 			</tr>";
@@ -61,6 +65,35 @@ if(empty($_SESSION["userId"])) {
 		
     echo "</tbody>
     </table>";
+	
+	echo "<!-- MODAL DELETE CONFIRM -->
+	<div id='id01' class='modal'>
+  <span onclick=\"document.getElementById('id01').style.display='none'\" class='close' title='Close Modal'>&times;</span>
+  <form class='modal-content' action='./camera-action.php?act=del' method='POST' id='miDeletion' name='miDeletion'>
+    <div class='container'>
+      <h1>Delete a Camera</h1>
+      <p id='deletesure'>Are you sure?</p>
+
+      <div class='clearfix'>
+        <button onclick=\"document.getElementById('id01').style.display='none'\" type='button' class='cancelbtn'>Cancel</button>
+        <button type='submit' class='deletebtn' name='delcam' value='Delete'>Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- DELETE MODAL JS + -->
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+</script>
+	";
 	
     echo "<br />";
 	echo "<b>Add a Camera:</b>";
