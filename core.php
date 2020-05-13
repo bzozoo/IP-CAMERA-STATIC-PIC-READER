@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>CAM STATIC IMG LISTING</title>
-<link rel="stylesheet" type="text/css" href="./css/modal.css">
+<link rel="stylesheet" type="text/css" href="./view/css/modal.css">
 <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
@@ -136,9 +136,7 @@ echo "</div><!-- /modalcontent -->
 
 // Include script for modal
 echo "<!-- Modal Script -->
-      <script src='core-modal.js'></script>";
-
-
+      <script src='./view/js/core-modal.js'></script>";
 
 // Close HTML tags
 echo "</body>
