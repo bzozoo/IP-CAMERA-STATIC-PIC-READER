@@ -46,7 +46,7 @@ if(empty($_SESSION["userId"])) {
         $CamPathDisplay = $value1['cam_path'];
 		$KeyPlusOne = ($key+1);
         ?>
-		    <!-- CID <?echo$cID; CAMSEC <?echo$cams;?> -->
+		    <!-- CID <?echo$cID;?> CAMSEC <?echo$cams;?> -->
 			 <tr>
                 <td><?echo$KeyPlusOne;?></td>
                 <td><?echo$CamNameDisplay;?></td>
