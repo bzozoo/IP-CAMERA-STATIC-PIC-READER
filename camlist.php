@@ -13,6 +13,7 @@ if(empty($_SESSION["userId"])) {
 <meta name="viewport" content="width=device-width, user-scalable=no">
 <link href='./view/css/style.css' rel='stylesheet' type='text/css' />
 <link href='./view/css/deletepopup.css' rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <br />
 	
@@ -53,15 +54,19 @@ if(empty($_SESSION["userId"])) {
                 <td><?echo$CamPathDisplay;?></td>
                 
             </tr>
-			    <td colspan='2'>
-				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button>VIEW</button></a>
+                <td colspan='3'>
+			         <table>
+					 <tbody>
+				 <tr>
+                   <td>				 
+				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button><i class="fa fa-eye" style="font-size:24px"></i></button></a>
 				</td>
-                <td colspan='1'>
-				<script>
-				var hidimp<?echo $KeyPlusOne;?> = "<input type='hidden' id='delcamID-<?echo $KeyPlusOne;?>' name='delcamID' value='<? echo $cID;?>'>"
-				</script>
-				
-				<input  onclick="document.getElementById('deleteModal').style.display='block'; document.getElementById('deletesure').innerHTML = 'Are You sure DELETE <?echo $KeyPlusOne;?>. camera? ' + hidimp<? echo $KeyPlusOne;?>" type='button' id='delcam-$KeyPlusOne' name='delalert'  value='DEL'>
+				<td>
+				<button  class="button deletebtn" onclick="modalDelOpen();modalDeleteTextSet(<?echo $KeyPlusOne;?>,<? echo $cID;?>);" id='delcam-$KeyPlusOne' name='delalert'><i class="fa fa-trash-o" style="font-size:24px"></i></button>
+				</td>
+				</tr>
+				    </tbody>
+                    </table>
 			<tr>
 			
 			</tr>
@@ -72,21 +77,31 @@ if(empty($_SESSION["userId"])) {
 	
 	<!-- MODAL DELETE CONFIRM -->
 	<div id='deleteModal' class='modal'>
-  <span onclick=\"document.getElementById('deleteModal').style.display='none'\" class='close' title='Close Modal'>&times;</span>
+  <span onclick="document.getElementById('deleteModal').style.display='none'" class='close' title='Close Modal'>&times;</span>
   <form class='modal-content' action='./camera-action.php?act=del' method='POST' id='miDeletion' name='miDeletion'>
     <div class='container'>
       <h1>Delete a Camera</h1>
       <p id='deletesure'>Are you sure?</p>
 
       <div class='clearfix'>
+	    <button type='submit' class='deletebtn' name='delcam' value='Delete'>Delete</button>
         <button onclick="document.getElementById('deleteModal').style.display='none'" type='button' class='cancelbtn'>Cancel</button>
-        <button type='submit' class='deletebtn' name='delcam' value='Delete'>Delete</button>
       </div>
     </div>
   </form>
 </div>
 <!-- DELETE MODAL JS + -->
 <script>
+//Modal Open
+function modalDelOpen() {
+document.getElementById('deleteModal').style.display='block';
+}
+
+function modalDeleteTextSet(keyplusone,cidd) {
+  var hidimp = "<input type='hidden' id='delcamID-'" + keyplusone + "' name='delcamID' value='" + cidd + "'>"
+  document.getElementById('deletesure').innerHTML = 'Are You sure DELETE ' + keyplusone + '. camera? ' + hidimp;
+}
+
 // Get the modal
 var modal = document.getElementById('deleteModal');
 
