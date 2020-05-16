@@ -6,33 +6,37 @@ if(empty($_SESSION["userId"])) {
 }
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
+?>
+<html>
+<head>
+<title>CAMERA LIST</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<link href='./view/css/style.css' rel='stylesheet' type='text/css' />
+<link href='./view/css/deletepopup.css' rel='stylesheet' type='text/css' />
+</head>
+<br />
 	
-	echo "<html>";
-	echo "<head>";
-	echo "<title>CAMERA LIST</title>";
-	echo '<meta name="viewport" content="width=device-width, user-scalable=no">';
-	echo "<link href='./view/css/style.css' rel='stylesheet' type='text/css' />";
-	echo "<link href='./view/css/deletepopup.css' rel='stylesheet' type='text/css' />";
-	echo "</head>";
-	echo "<br />";
+<div class='dashboard'>
+  <div class='member-dashboard'>
+    Hello <? echo $displayName; ?> UID(<? echo $sessionUserID; ?>) <a href='./'>[Dashboard]</a>
+	<br />
+	 <div style='font-size: 18px; text-align: -webkit-center; text-align: -moz-center;'>
 	
-	echo "  <div class='dashboard'>
-            <div class='member-dashboard'>";
-    echo "Hello $displayName UID($sessionUserID) <a href='./'>[Dashboard]</a>";
-	echo "<br />";
-	echo "<div style='font-size: 18px; text-align: -webkit-center; text-align: -moz-center;'>";
-	//Camlist
-	echo "<h2>Camera List</h2>";
+	<h2>Camera List</h2>
+	<?php
 	echo $_SESSION['deletedcamera_message'];
 	unset($_SESSION['deletedcamera_message']);
-	echo "
+	?>
+	
 	<table border='1'>
      <tbody>
         <tr>
             <td><b>NUM</b></td>
             <td><b>NAME</b></td>
             <td><b>PATH</b></td>
-        </tr>";
+        </tr>
+		
+		<?php
 		foreach($cameraListByUidArray as $key => $value1) {
 		$cID = $value1['c_id'];
 		$camSecret = $value1['cam_secret'];
@@ -41,41 +45,41 @@ if(empty($_SESSION["userId"])) {
 		$CamNameDisplay = $value1['display_camname'];
         $CamPathDisplay = $value1['cam_path'];
 		$KeyPlusOne = ($key+1);
-        echo "
+        ?>
 		    <!-- CID $cID CAMS $cams -->
 			 <tr>
-                <td>$KeyPlusOne</td>
-                <td>$CamNameDisplay</td>
-                <td>$CamPathDisplay</td>
+                <td><?echo$KeyPlusOne;?></td>
+                <td><?echo$CamNameDisplay;?></td>
+                <td><?echo$CamPathDisplay;?></td>
                 
             </tr>
 			    <td colspan='2'>
-				<a href='camreader.php?cam_num=$KeyPlusOne&sortdate=$sortByDate'><button>VIEW</button></a>
+				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button>VIEW</button></a>
 				</td>
                 <td colspan='1'>
 				<script>
-				var hidimp$KeyPlusOne = \"<input type='hidden' id='delcamID-$KeyPlusOne' name='delcamID' value='$cID'>\"
+				var hidimp<?echo $KeyPlusOne;?> = "<input type='hidden' id='delcamID-<?echo $KeyPlusOne;?>' name='delcamID' value='<? echo $cID;?>'>"
 				</script>
 				
-				<input  onclick=\"document.getElementById('id01').style.display='block'; document.getElementById('deletesure').innerHTML = 'Are You sure DELETE $KeyPlusOne. camera? ' + hidimp$KeyPlusOne \" type='button' id='delcam-$KeyPlusOne' name='delalert'  value='DEL'>
+				<input  onclick="document.getElementById('deleteModal').style.display='block'; document.getElementById('deletesure').innerHTML = 'Are You sure DELETE <?echo $KeyPlusOne;?>. camera? ' + hidimp<? echo $KeyPlusOne;?>" type='button' id='delcam-$KeyPlusOne' name='delalert'  value='DEL'>
 			<tr>
 			
-			</tr>";
-        }
+			</tr>
+        <? } //ForeachEnd ?>
 		
-    echo "</tbody>
-    </table>";
+    </tbody>
+    </table>
 	
-	echo "<!-- MODAL DELETE CONFIRM -->
-	<div id='id01' class='modal'>
-  <span onclick=\"document.getElementById('id01').style.display='none'\" class='close' title='Close Modal'>&times;</span>
+	<!-- MODAL DELETE CONFIRM -->
+	<div id='deleteModal' class='modal'>
+  <span onclick=\"document.getElementById('deleteModal').style.display='none'\" class='close' title='Close Modal'>&times;</span>
   <form class='modal-content' action='./camera-action.php?act=del' method='POST' id='miDeletion' name='miDeletion'>
     <div class='container'>
       <h1>Delete a Camera</h1>
       <p id='deletesure'>Are you sure?</p>
 
       <div class='clearfix'>
-        <button onclick=\"document.getElementById('id01').style.display='none'\" type='button' class='cancelbtn'>Cancel</button>
+        <button onclick="document.getElementById('deleteModal').style.display='none'" type='button' class='cancelbtn'>Cancel</button>
         <button type='submit' class='deletebtn' name='delcam' value='Delete'>Delete</button>
       </div>
     </div>
@@ -84,7 +88,7 @@ if(empty($_SESSION["userId"])) {
 <!-- DELETE MODAL JS + -->
 <script>
 // Get the modal
-var modal = document.getElementById('id01');
+var modal = document.getElementById('deleteModal');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -93,14 +97,15 @@ window.onclick = function(event) {
   }
 }
 </script>
-	";
 	
-    echo "<br />";
-	echo "<b>Add a Camera:</b>";
-	echo "<br />";
+   <br />
+   <b>Add a Camera:</b>
+    <br />
+	<?
 	echo $_SESSION['try_hackID_message'] . "<br />";
 	unset($_SESSION['try_hackID_message']);
-	echo "
+	?> 
+	 
 	<form action='./camera-action.php?act=add' method='POST'>
 	<table border='1'>
      <tbody>
@@ -109,7 +114,7 @@ window.onclick = function(event) {
             <td><b>CAMERA PATH</b></td>
         </tr>
 		<tr>
-            <td><input type='hidden' id='cam_owner' name='cam_owner' value='$sessionUserID' required />
+            <td><input type='hidden' id='cam_owner' name='cam_owner' value='<?echo $sessionUserID;?>' required />
 			    <input type='text' id='cam_name' name='cam_name' placeholder='MyCamera' required /></td>
             <td><input type='text' id='cam_path' name='cam_path' placeholder='/My/Image/Path/' required /></td>
          </tr>
@@ -119,19 +124,17 @@ window.onclick = function(event) {
 		</tbody>
     </table>
 	</form> 
-		";
-	echo "</div>";
-	echo "<br />";
+		
+	   </div>
+	    <br />
 
-	echo "Sort camera images by: <a href='?&sortdate=ASC'>[ASC]</a> <a href='?&sortdate=DSC'>[DSC]</a>";
-	echo "<br />";
-	echo "<br />";
-	echo "Click to <a href='logout.php' class='logout-button'>Logout</a>";
-	echo "<br />";
-	echo "<hr />";
-	
-	echo "  </div>
-            </div>";
+	   Sort camera images by: <a href='?&sortdate=ASC'>[ASC]</a> <a href='?&sortdate=DSC'>[DSC]</a>
+	   <br />
+	   <br />
+	     Click to <a href='logout.php' class='logout-button'>Logout</a>
+	     <br />
+	      <hr />
 
-	echo "</html>";
-?>
+	       </div>
+             </div> 
+	</html>
