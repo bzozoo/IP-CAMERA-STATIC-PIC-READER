@@ -82,12 +82,11 @@ body {
 
 .dashboard {
     background: #d2edd5;
-    text-align: center;
     margin: 15px auto;
-    line-height: 1.8em;
+    /* line-height: 1.8em; */
     color: #333;
     border-radius: 4px;
-    padding: 30px;
+    padding: 5px;
     max-width: 600px;
     border: #c8e0cb 1px solid;
 }
