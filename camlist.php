@@ -6,6 +6,8 @@ if(empty($_SESSION["userId"])) {
 }
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
+	
+	$newCoreClass = new coreClass();
 ?>
 <html>
 <head>
@@ -13,6 +15,7 @@ if(empty($_SESSION["userId"])) {
 <meta name="viewport" content="width=device-width, user-scalable=no">
 <link href='./view/css/style.css' rel='stylesheet' type='text/css' />
 <link href='./view/css/deletepopup.css' rel='stylesheet' type='text/css' />
+<link href='./view/css/camlist.css' rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <br />
@@ -21,59 +24,82 @@ if(empty($_SESSION["userId"])) {
   <div class='member-dashboard'>
     Hello <? echo $displayName; ?> UID(<? echo $sessionUserID; ?>) <a href='./'>[Dashboard]</a>
 	<br />
-	 <div style='font-size: 18px; text-align: -webkit-center; text-align: -moz-center;'>
+	
 	
 	<h2>Camera List</h2>
 	<?php
 	echo $_SESSION['deletedcamera_message'];
 	unset($_SESSION['deletedcamera_message']);
 	?>
-	
-	<table border='1'>
-     <tbody>
-        <tr>
-            <td><b>NUM</b></td>
-            <td><b>NAME</b></td>
-            <td><b>PATH</b></td>
-        </tr>
 		
 		<?php
+		// $cameraListByUidArray in camboard.php
 		foreach($cameraListByUidArray as $key => $value1) {
+		// Camera ID var
 		$cID = $value1['c_id'];
+		// Camera Secret Value Var
 		$camSecret = $value1['cam_secret'];
+		// Camera Secret to session
 		$_SESSION[$cID.'-CAM'] = "$camSecret";
+		// Check CamSecret Value from session 
 		$cams = $_SESSION[$cID.'-CAM'];
+		//Get Camera Name
 		$CamNameDisplay = $value1['display_camname'];
-        $CamPathDisplay = $value1['cam_path'];
+        // Get Camera path
+		$CamPathDisplay = $value1['cam_path'];
+		// Gen An array with actual CAM PATH
+		$ArrayedDir = $newCoreClass->globArray($CamPathDisplay);
+		//Get Image Datas If ArrayedDir not null
+		if (!empty($ArrayedDir)) {
+		  $GetImageDatas = $newCoreClass->imagedataArray($ArrayedDir);
+		  $LastPicDate = date("Y F d H:i:s", $GetImageDatas[0]['pictdate']);
+		} else {
+			$GetImageDatas[0]['picturl'] = "No";
+			$LastPicDate = $GetImageDatas[0]['pictdate'] = "data";
+		}
+		//Total item in actual CAM PATH array
+		$TotalFilesInDir = count($ArrayedDir);
+		// First item GET NUM 1
 		$KeyPlusOne = ($key+1);
         ?>
-		    <!-- CID <?echo$cID;?> CAMSEC <?echo$cams;?> -->
-			 <tr>
-                <td><?echo$KeyPlusOne;?></td>
-                <td><?echo$CamNameDisplay;?></td>
-                <td><?echo$CamPathDisplay;?></td>
-                
-            </tr>
-                <td colspan='3'>
-			         <table>
+		
+		 <!-- CID <?echo$cID;?> CAMSEC <?echo$cams;?>  -->
+		
+		
+		<div class="camitem">
+    <div class="camitem-content">
+        <div class="camitem-number">
+            <?echo$KeyPlusOne;?>
+        </div>
+    <div class="camitem-listbody">
+        <div class="camitem-title">
+               <h2><?echo$CamNameDisplay;?></h2> (<? echo$TotalFilesInDir;?> files)
+        </div>
+        <div class="camitem-path">
+          <?echo$CamPathDisplay;?>
+         </div>
+         <div class="camitem-actions">
+                <table>
 					 <tbody>
-				 <tr>
-                   <td>				 
-				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button><i class="fa fa-eye" style="font-size:24px"></i></button></a>
+				<tr>
+				<td>				 
+                <a href='<? echo $GetImageDatas[0]['picturl'];?>' title="Last Img Date: <? echo $LastPicDate; ?>"><button class="button bluebtn"><i class="fa fa-image" style="font-size:20px"></i></button></a>
+				</td>
+                <td>				 
+				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button><i class="fa fa-eye" style="font-size:20px"></i></button></a>
 				</td>
 				<td>
-				<button  class="button deletebtn" onclick="modalDelOpen();modalDeleteTextSet(<?echo $KeyPlusOne;?>,<? echo $cID;?>);" id='delcam-$KeyPlusOne' name='delalert'><i class="fa fa-trash-o" style="font-size:24px"></i></button>
+				<button  class="button deletebtn" onclick="modalDelOpen();modalDeleteTextSet(<?echo $KeyPlusOne;?>,<? echo $cID;?>);" id='delcam-$KeyPlusOne' name='delalert'><i class="fa fa-trash-o" style="font-size:20px"></i></button>
 				</td>
 				</tr>
-				    </tbody>
-                    </table>
-			<tr>
-			
-			</tr>
-        <? } //ForeachEnd ?>
+				</tbody>
+                </table>
+         </div>
+    </div>
+    </div>
+</div>
 		
-    </tbody>
-    </table>
+        <? } //ForeachEnd ?>
 	
 	<!-- MODAL DELETE CONFIRM -->
 	<div id='deleteModal' class='modal'>
@@ -140,7 +166,7 @@ window.onclick = function(event) {
     </table>
 	</form> 
 		
-	   </div>
+
 	    <br />
 
 	   Sort camera images by: <a href='?&sortdate=ASC'>[ASC]</a> <a href='?&sortdate=DSC'>[DSC]</a>
