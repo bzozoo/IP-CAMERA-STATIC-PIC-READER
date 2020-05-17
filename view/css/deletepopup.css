@@ -1,5 +1,3 @@
-* {box-sizing: border-box}
-
 /* Set a style for all buttons */
 button {
   background-color: #4CAF50;
@@ -30,6 +28,10 @@ button:hover {
 /* Add a color to the delete button */
 .deletebtn {
   background-color: #f44336;
+}
+
+.bluebtn {
+  background-color: royalblue;
 }
 
 /* Add padding and center-align text to the container */
