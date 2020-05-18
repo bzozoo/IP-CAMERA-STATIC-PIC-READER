@@ -174,7 +174,7 @@ window.onclick = function(event) {
 
 	    <br />
 
-	   Sort camera images by: <a href='?&sortdate=ASC'>[ASC]</a> <a href='?&sortdate=DSC'>[DSC]</a>
+	   Sort camera images by: <a href='?&sortdate=ASC'>[OldFirst]</a> <a href='?&sortdate=DSC'>[NewFirst]</a>
 	   <br />
 	   <br />
 	     Click to <a href='logout.php' class='logout-button'>Logout</a>
