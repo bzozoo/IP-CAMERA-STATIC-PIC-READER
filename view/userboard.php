@@ -16,6 +16,9 @@ if (! empty($_SESSION["userId"])) {
 	// All Member Array
 	$AllMemberResult = $member->getAllMember();
 	
+	//User ID Variable from SESSION user ID
+	$sessionUserID = $_SESSION['userId'];
+	
 	//Query Profile datas
     if(!empty($memberResult[0]["display_name"])) {
 		//Display name and email need in Camreader, Camlist views
