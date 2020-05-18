@@ -10,7 +10,7 @@
 <body>
     <div>
         <div class="dashboard">
-            <div class="member-dashboard">Welcome <b><?php echo $displayName; ?></b><?php echo " UID(" . $_SESSION["userId"] . ")"; echo " [" . $uEmail . "]"; ?> 
+            <div class="member-dashboard">Welcome <b><?php echo $displayName; ?></b><?php echo " UID(" . $sessionUserID . ")"; echo " [" . $uEmail . "]"; ?> 
 			    <br />Dashboard menu<br />
 				
 				<?php
