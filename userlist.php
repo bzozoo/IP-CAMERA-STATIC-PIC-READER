@@ -12,18 +12,23 @@ if(empty($_SESSION["userId"])) {
     exit;
 }
 
+    //We need require userboard to admin check!
     require_once './view/userboard.php';
-	if ($adminCheck != NULL) {
+	if ($adminCheck == NULL) {
+		echo "This page visible only for admin. Got to -> <a href='./'>Dashboard</a>";
+	    echo "<br />";
+	    echo "Click to <a href='logout.php' class='logout-button'>Logout</a>";
+	    exit;
+	}
 	require_once 'functions.php';
-	$sessionUserID = $_SESSION['userId'];
-
+	
     echo "  <div class='dashboard'>
             <div class='member-dashboard'>";
     echo "Hello $displayName UID($sessionUserID) <a href='./'>[Dashboard]</a>";
 	echo "<br />";
 	
 	predumparray($AllMemberResult);
-	} else { echo "This page visible only for admin. Got to -> <a href='./'>Dashboard</a>"; }
+	
 	echo "<br />";
 	echo "Click to <a href='logout.php' class='logout-button'>Logout</a>";
 	echo "<br />";	
