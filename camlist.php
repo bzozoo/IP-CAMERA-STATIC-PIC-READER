@@ -6,7 +6,7 @@ if(empty($_SESSION["userId"])) {
 }
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
-	
+	$countallfiles = 0;
 	$newCoreClass = new coreClass();
 ?>
 <html>
@@ -27,6 +27,7 @@ if(empty($_SESSION["userId"])) {
 	
 	
 	<h2>Camera List</h2>
+	<p>(<? echo count($cameraListByUidArray);?> cams)</p>
 	<?php
 	echo $_SESSION['deletedcamera_message'];
 	unset($_SESSION['deletedcamera_message']);
@@ -39,7 +40,7 @@ if(empty($_SESSION["userId"])) {
 		$cID = $value1['c_id'];
 		// Camera Secret Value Var
 		$camSecret = $value1['cam_secret'];
-		// Camera Secret to session
+		// Camera ID pair with Secret in session
 		$_SESSION[$cID.'-CAM'] = "$camSecret";
 		// Check CamSecret Value from session 
 		$cams = $_SESSION[$cID.'-CAM'];
@@ -61,6 +62,8 @@ if(empty($_SESSION["userId"])) {
 		$TotalFilesInDir = count($ArrayedDir);
 		// First item GET NUM 1
 		$KeyPlusOne = ($key+1);
+		$countallfiles = $countallfiles + $TotalFilesInDir; 
+		
         ?>
 		
 		 <!-- CID <?echo$cID;?> CAMSEC <?echo$cams;?>  -->
@@ -100,6 +103,8 @@ if(empty($_SESSION["userId"])) {
 </div>
 		
         <? } //ForeachEnd ?>
+		
+		
 	
 	<!-- MODAL DELETE CONFIRM -->
 	<div id='deleteModal' class='modal'>
