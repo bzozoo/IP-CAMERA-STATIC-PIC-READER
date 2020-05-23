@@ -6,8 +6,8 @@ if(empty($_SESSION["userId"])) {
 }
     require_once './view/userboard.php';
 	require_once './view/camboard.php';
-	$countallfiles = 0;
-	$newCoreClass = new coreClass();
+	
+	//We have $newCoreClass = new coreClass(); in camboard.php
 ?>
 <html>
 <head>
