@@ -1,4 +1,8 @@
 <?php
+namespace Phppot;
+
+//use \Phppot\DataSource;
+
 class coreClass
 {
     public function globArray($defineddir) {
@@ -14,10 +18,12 @@ class coreClass
 	   
 	   $sortByDate = $_GET['sortdate'];
 	   
+	   if ($imgdatAarrays != null) {
 	   if ($sortByDate == 'ASC') {
        array_multisort(array_column($imgdatAarrays, 'pictdate'), SORT_ASC, array_column($imgdatAarrays, 'picturl'), SORT_ASC, $imgdatAarrays);		   
 	   }else {
        array_multisort(array_column($imgdatAarrays, 'pictdate'), SORT_DESC, array_column($imgdatAarrays, 'picturl'), SORT_ASC, $imgdatAarrays);
+	   }
 	   }
 	   return $imgdatAarrays;
        }
