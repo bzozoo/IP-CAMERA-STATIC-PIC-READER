@@ -56,8 +56,8 @@ plusSlides(a);
 document.onkeydown = function(e){
     e = e || window.event;
     var key = e.which || e.keyCode;
-    if(key===84){
-          alert('TEST');
+            if(key===84){
+            alert('TEST');
     }
 	        if(key===37){
           plusSlides(-1);
@@ -70,5 +70,8 @@ document.onkeydown = function(e){
     }
 		    if(key===40){
           plusSlides(1);
+    }
+           if(key===27){
+          closeModal();
     }
 }
