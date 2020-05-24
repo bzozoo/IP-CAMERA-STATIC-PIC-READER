@@ -21,7 +21,7 @@ if(empty($_SESSION["userId"])) {
 <br />
 	
 <div class='dashboard'>
-  <div class='member-dashboard'>
+    <div class='member-dashboard'>
     Hello <? echo $displayName; ?> UID(<? echo $sessionUserID; ?>) <a href='./'>[Dashboard]</a>
 	<br />
 	
@@ -85,14 +85,22 @@ if(empty($_SESSION["userId"])) {
                 <table>
 					 <tbody>
 				<tr>
+				
 				<td>				 
-                <a href='<? echo $GetImageDatas[0]['picturl'];?>' title="Last Img Date: <? echo $LastPicDate; ?>"><button class="button bluebtn"><i class="fa fa-image" style="font-size:20px"></i></button></a>
+				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'>
+				<button class="buttonact greenbtn"><i class="fa fa-eye" style="font-size:20px"></i></button></a>
 				</td>
-                <td>				 
-				<a href='camreader.php?cam_num=<?echo $KeyPlusOne;?>&sortdate=<?echo $sortByDate;?>'><button><i class="fa fa-eye" style="font-size:20px"></i></button></a>
+				<td>				 
+                <a href='<? echo $GetImageDatas[0]['picturl'];?>' title="Last Img Date: <? echo $LastPicDate; ?>">
+				<button class="buttonact bluebtn"><i class="fa fa-image" style="font-size:20px"></i></button></a>
 				</td>
 				<td>
-				<button  class="button deletebtn" onclick="modalDelOpen();modalDeleteTextSet(<?echo $KeyPlusOne;?>,<? echo $cID;?>);" id='delcam-$KeyPlusOne' name='delalert'><i class="fa fa-trash-o" style="font-size:20px"></i></button>
+				<button  class="buttonact yellowbtn editbuttons" id='edtcam-<?echo$KeyPlusOne;?>' data-camNum="<?echo$KeyPlusOne;?>" data-camId="<?echo$cID;?>" data-camName="<?echo$CamNameDisplay;?>" data-camPath="<?echo$CamPathDisplay;?>" name='edit'>
+				<i class="fa fa-pencil-square-o" style="font-size:20px"></i>
+				</button>
+				</td>
+				<td>
+				<button  class="buttonact deletebtn" onclick="modalDelOpen();modalDeleteTextSet(<?echo $KeyPlusOne;?>,<? echo $cID;?>);" id='delcam-$KeyPlusOne' name='delalert'><i class="fa fa-trash-o" style="font-size:20px"></i></button>
 				</td>
 				</tr>
 				</tbody>
@@ -103,47 +111,7 @@ if(empty($_SESSION["userId"])) {
 </div>
 		
         <? } //ForeachEnd ?>
-		
-		
-	
-	<!-- MODAL DELETE CONFIRM -->
-	<div id='deleteModal' class='modal'>
-  <span onclick="document.getElementById('deleteModal').style.display='none'" class='close' title='Close Modal'>&times;</span>
-  <form class='modal-content' action='./camera-action.php?act=del' method='POST' id='miDeletion' name='miDeletion'>
-    <div class='container'>
-      <h1>Delete a Camera</h1>
-      <p id='deletesure'>Are you sure?</p>
 
-      <div class='clearfix'>
-	    <button type='submit' class='deletebtn' name='delcam' value='Delete'>Delete</button>
-        <button onclick="document.getElementById('deleteModal').style.display='none'" type='button' class='cancelbtn'>Cancel</button>
-      </div>
-    </div>
-  </form>
-</div>
-<!-- DELETE MODAL JS + -->
-<script>
-//Modal Open
-function modalDelOpen() {
-document.getElementById('deleteModal').style.display='block';
-}
-
-function modalDeleteTextSet(keyplusone,cidd) {
-  var hidimp = "<input type='hidden' id='delcamID-'" + keyplusone + "' name='delcamID' value='" + cidd + "'>"
-  document.getElementById('deletesure').innerHTML = 'Are You sure DELETE ' + keyplusone + '. camera? ' + hidimp;
-}
-
-// Get the modal
-var modal = document.getElementById('deleteModal');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = 'none';
-  }
-}
-</script>
-	
    <br />
    <b>Add a Camera:</b>
     <br />
@@ -170,7 +138,6 @@ window.onclick = function(event) {
 		</tbody>
     </table>
 	</form> 
-		
 
 	    <br />
 
@@ -180,7 +147,136 @@ window.onclick = function(event) {
 	     Click to <a href='logout.php' class='logout-button'>Logout</a>
 	     <br />
 	      <hr />
+    </div><!-- /member-dasboard -->
+</div><!-- /dasboard -->
 
-	       </div>
-             </div> 
-	</html>
+<!-- MODAL POPUPS -->
+
+<!-- MODAL DELETE CONFIRM -->
+<div id='deleteModal' class='modal'>
+  <span onclick="document.getElementById('deleteModal').style.display='none'" class='close' title='Close Modal'>&times;</span>
+  <form class='modal-content' action='./camera-action.php?act=del' method='POST' id='miDeletion' name='miDeletion'>
+    <div class='container'>
+      <h1>Delete a Camera</h1>
+      <p id='deletesure'>Are you sure?</p>
+
+      <div class='clearfix'>
+	    <button type='submit' class='buttonact deletebtn' name='delcam' value='Delete'>Delete</button>
+        <button onclick="document.getElementById('deleteModal').style.display='none'" type='button' class='buttonact cancelbtn'>Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- MODAL EDIT POPOP -->
+<div class="editmodal modhidden o-editpopup c-cam-update" id="editcamera_modal">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close o-editpopup__close-btn">
+        X
+		</button>
+          <h4 class="modal-title"><span class="camnumprint">EDIT CAMERA X</span></h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" class="c-cam-update__id" name="camID"/>
+        <p>Camera Name</p>
+        <input type="text" class="c-cam-update__name wdt95" name="camName"/>
+
+        <p>Camera Path</p>
+        <input type="text" class="c-cam-update__path wdt95" name="camPath"/>
+      </div>
+      <div class="modal-footer">
+
+        <button class="btn btn-default o-editpopup__close-btn" >Close</button>
+        <button class="btn o-editpopup__close-btn">UPDATE</button>
+      </div>
+    </div>
+</div>
+
+<!-- DELETE MODAL JS + -->
+<script>
+//Modal Open
+function modalDelOpen() {
+document.getElementById('deleteModal').style.display='block';
+}
+
+function modalDeleteTextSet(keyplusone,cidd) {
+  var hidimp = "<input type='hidden' id='delcamID-'" + keyplusone + "' name='delcamID' value='" + cidd + "'>"
+  document.getElementById('deletesure').innerHTML = 'Are You sure DELETE ' + keyplusone + '. camera? ' + hidimp;
+}
+</script>
+
+<!-- EDIT CAMERA MODAL JS + -->
+<script>
+const camupdatepopup = document.querySelector('.o-editpopup.c-cam-update');
+const camNumPrint = camupdatepopup.querySelector('.camnumprint');
+const camIdInput = camupdatepopup.querySelector('.c-cam-update__id');
+const camNameInput = camupdatepopup.querySelector('.c-cam-update__name');
+const camPathInput = camupdatepopup.querySelector('.c-cam-update__path');
+
+//PopupCloser
+camupdatepopup.addEventListener('click', e => {
+  if (e.target.classList.contains('o-editpopup__close-btn')) {
+    camupdatepopup.classList.add('modhidden');
+  }
+})
+
+const editbuttons = document.querySelectorAll('.editbuttons');
+const onEditButtonClick = e => {
+  const editbutton = e.currentTarget;
+  const camnum = editbutton.dataset.camnum;
+  const id = editbutton.dataset.camid;
+  const name = editbutton.dataset.camname;
+  const path = editbutton.dataset.campath;
+  console.log(name);
+  camNumPrint.innerHTML = "EDIT CAMERA: " + camnum;
+  camIdInput.value = id;
+  camNameInput.value = name;
+  camPathInput.value = path;
+  camupdatepopup.classList.remove('modhidden');
+}
+
+for (const editbutton of editbuttons) {
+  editbutton.addEventListener('click', onEditButtonClick);
+}
+
+</script>
+
+<!-- Script FOR Window.Onclick event -->
+<script>
+// Get the editcamera_modal
+var editmodal = document.getElementById('editcamera_modal');
+
+// Get the modal
+var deletemodal = document.getElementById('deleteModal');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == camupdatepopup) {
+	camupdatepopup.classList.add('modhidden');
+    }
+  if (event.target == deletemodal) {
+    document.getElementById('deleteModal').style.display='none';
+  }
+}
+</script>
+
+<!-- KeyboardEvets -->
+<script>
+//KeyboardEvets
+document.onkeydown = function(ez){
+    ez = ez || window.event;
+    var key = ez.which || ez.keyCode;
+            if(key===84){
+            console.log('TEST');
+    }
+           if(key===27){
+          document.getElementById('deleteModal').style.display='none';
+          camupdatepopup.classList.add('modhidden');
+    }
+}
+</script>
+
+</html>
