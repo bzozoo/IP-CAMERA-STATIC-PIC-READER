@@ -24,4 +24,5 @@ Features:
 * Picture listening reverse by date
 * Included user login system (Phppot)
 * Modal lightbox for pictrures
+* FontAwesome buttons
 * Pagination 200 JPG files per page. You can change it in core.php about $perpage variable.
